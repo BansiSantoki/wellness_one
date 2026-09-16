@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { MenuIcon, XIcon } from 'lucide-react';
 import { primaryNav } from '../../data/navigation';
 import { site, whatsappLink } from '../../config/site';
+import logoImg from '../../assets/logo.png';
 
 interface NavbarProps {
   /** Pages that open on a dark image need the transparent treatment at rest. */
@@ -62,7 +63,7 @@ export function Navbar({ overDark }: NavbarProps) {
           
           <Link to="/" className={`group flex items-center leading-none ${textColor}`}>
             <img
-              src="/logo.png"
+              src={logoImg}
               alt="PARC logo"
               className={`h-16 w-auto object-contain sm:h-20 lg:h-24 transition-all duration-300 ${
                 light ? 'drop-shadow-[0_2px_10px_rgba(255,255,255,0.9)] filter' : ''
@@ -136,7 +137,7 @@ export function Navbar({ overDark }: NavbarProps) {
           
             <div className="flex items-center justify-between px-5 py-5 sm:px-8">
               <img
-                src="/logo.png"
+                src={logoImg}
                 alt="PARC logo"
                 className="h-16 w-auto object-contain sm:h-20 drop-shadow-[0_2px_10px_rgba(255,255,255,0.9)] filter"
               />

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { InstagramIcon, FacebookIcon, YoutubeIcon, MailIcon, PhoneIcon, MapPinIcon } from 'lucide-react';
 import { footerNav, localNav } from '../../data/navigation';
 import { site, whatsappLink, telLink, DISCLAIMER } from '../../config/site';
+import logoImg from '../../assets/logo.png';
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -14,7 +15,7 @@ export function Footer() {
           <div className="lg:col-span-5">
             <Link to="/" className="inline-block transition-transform duration-300 hover:scale-[1.02]">
               <img
-                src="/logo.png"
+                src={logoImg}
                 alt="PARC logo"
                 className="h-24 w-auto object-contain sm:h-28 lg:h-32 drop-shadow-[0_2px_12px_rgba(255,255,255,0.9)] filter"
               />
