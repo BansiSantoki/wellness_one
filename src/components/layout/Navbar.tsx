@@ -44,174 +44,223 @@ export function Navbar({ overDark }: NavbarProps) {
   }, []);
 
   const light = overDark && !scrolled;
-  const shellClasses = scrolled ?
-  'bg-ivory/88 backdrop-blur-md border-b border-ink/10' :
-  overDark ?
-  'bg-transparent border-b border-transparent' :
-  'bg-ivory border-b border-ink/10';
 
-  const textColor = light ? 'text-ivory' : 'text-ink';
+  const shellClasses = scrolled
+    ? 'bg-[#FCFAF4] border-b border-[#173D30]/10 shadow-[0_2px_15px_rgba(23,61,48,0.06)]'
+    : overDark
+    ? 'bg-transparent border-b border-transparent'
+    : 'bg-[#FCFAF4] border-b border-[#173D30]/10';
+
+  const textColor = light ? 'text-white' : 'text-[#173D30]';
+
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === '/') {
+      e.preventDefault();
+      const elem = document.getElementById('home');
+      if (elem) {
+        elem.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-500 ease-calm ${shellClasses}`}>
-        
+        className={`fixed inset-x-0 top-0 z-40 h-[80px] transition-all duration-300 ease-calm ${shellClasses}`}
+      >
+        {/* Dark overlay over hero at top for maximum text legibility */}
+        {light && (
+          <div
+            className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-transparent pointer-events-none -z-10"
+            aria-hidden="true"
+          />
+        )}
+
         <nav
           aria-label="Primary"
-          className="mx-auto flex max-w-edge items-center justify-between gap-6 px-5 py-5 sm:px-8 lg:px-14">
-          
-          <Link to="/" className={`group flex items-center leading-none ${textColor}`}>
+          className="mx-auto flex h-full max-w-edge items-center justify-between px-5 sm:px-8 lg:px-12"
+        >
+          {/* Logo Aligned Left */}
+          <Link
+            to="/#home"
+            onClick={handleLogoClick}
+            className="group flex shrink-0 items-center justify-center py-1"
+            aria-label="One Wellness Clinic Home"
+          >
             <img
               src={logoImg}
-              alt="PARC logo"
-              className={`h-16 w-auto object-contain sm:h-20 lg:h-24 transition-all duration-300 ${
-                light ? 'drop-shadow-[0_2px_10px_rgba(255,255,255,0.9)] filter' : ''
-              }`}
+              alt="One Wellness Clinic & Research Center"
+              className="h-[60px] w-auto object-contain sm:h-[68px] lg:h-[72px] transition-all duration-300 drop-shadow-[0_0_14px_rgba(255,255,255,0.5)]"
             />
           </Link>
 
-          <ul className="hidden items-center gap-7 xl:flex">
-            {primaryNav.map((item) =>
-            <li key={item.to}>
+          {/* Centered Desktop Navigation Links */}
+          <ul className="hidden flex-1 items-center justify-center gap-5 lg:flex xl:gap-7">
+            {primaryNav.map((item) => (
+              <li key={item.to}>
                 <NavLink
-                to={item.to}
-                className={({ isActive }) =>
-                `group relative block text-[11px] font-medium uppercase tracking-wide2 transition-opacity duration-300 ${textColor} ${
-                isActive ? 'opacity-100' : 'opacity-65 hover:opacity-100'}`
-
-                }>
-                
-                  {({ isActive }) =>
-                <>
-                      {item.label}
+                  to={item.to}
+                  className={({ isActive }) =>
+                    `group relative block text-[12.5px] font-sans font-medium tracking-normal transition-colors duration-300 ${
+                      light
+                        ? isActive
+                          ? 'text-[#D3B67C]'
+                          : 'text-white hover:text-[#D3B67C]'
+                        : isActive
+                        ? 'text-[#173D30]'
+                        : 'text-[#173D30]/80 hover:text-[#D3B67C]'
+                    }`
+                  }
+                >
+                  {({ isActive }) => (
+                    <>
+                      <span className="py-1 inline-block">{item.label}</span>
                       <span
-                    className={`absolute -bottom-1.5 left-0 h-px w-full origin-left bg-current transition-transform duration-500 ease-calm ${
-                    isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}`
-                    }
-                    aria-hidden="true" />
-                  
+                        className={`absolute -bottom-1 left-0 h-[2px] w-full origin-left bg-[#D3B67C] transition-transform duration-300 ease-calm ${
+                          isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                        }`}
+                        aria-hidden="true"
+                      />
                     </>
-                }
+                  )}
                 </NavLink>
               </li>
-            )}
+            ))}
           </ul>
 
-          <div className="flex items-center gap-3">
+          {/* Book Consultation Button & Mobile Toggle */}
+          <div className="flex shrink-0 items-center gap-4">
             <Link
               to="/consultation"
-              className={`hidden px-6 py-3 text-[10px] font-medium uppercase tracking-wide2 transition-colors duration-300 ease-calm lg:inline-block ${
-              light ?
-              'border border-ivory/50 text-ivory hover:bg-ivory hover:text-ink' :
-              'bg-forest text-ivory hover:bg-pine'}`
-              }>
-              
-              Book Consultation
+              className={`hidden h-[42px] px-5 sm:px-6 text-[11px] font-sans font-medium uppercase tracking-[0.12em] items-center justify-center transition-all duration-300 ease-calm lg:inline-flex ${
+                light
+                  ? 'border border-[#D3B67C] bg-[#173D30]/30 backdrop-blur-xs text-white hover:bg-[#D3B67C] hover:text-[#173D30] hover:border-[#D3B67C]'
+                  : 'bg-[#173D30] text-[#FCFAF4] border border-[#173D30] hover:bg-[#0D241C] hover:border-[#0D241C]'
+              }`}
+            >
+              BOOK CONSULTATION
             </Link>
+
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
               aria-label="Open menu"
               aria-expanded={menuOpen}
-              className={`flex items-center gap-2 py-2 text-[10px] uppercase tracking-label xl:hidden ${textColor}`}>
-              
-              <span className="hidden sm:inline">Menu</span>
-              <MenuIcon className="h-5 w-5" aria-hidden="true" />
+              className={`flex items-center gap-2 p-2 transition-colors lg:hidden ${textColor}`}
+            >
+              <MenuIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
         </nav>
       </header>
 
+      {/* Mobile Navigation Drawer */}
       <AnimatePresence>
-        {menuOpen ?
-        <motion.div
-          className="fixed inset-0 z-50 flex flex-col bg-pine text-ivory"
-          initial={reduce ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
-          animate={reduce ? { opacity: 1 } : { clipPath: 'inset(0 0 0% 0)' }}
-          exit={reduce ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
-          transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Site menu">
-          
-            <div className="flex items-center justify-between px-5 py-5 sm:px-8">
-              <img
-                src={logoImg}
-                alt="PARC logo"
-                className="h-16 w-auto object-contain sm:h-20 drop-shadow-[0_2px_10px_rgba(255,255,255,0.9)] filter"
-              />
+        {menuOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 flex flex-col bg-[#FCFAF4] text-[#173D30]"
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -20 }}
+            transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
+          >
+            {/* Header inside drawer */}
+            <div className="flex h-[80px] items-center justify-between px-5 sm:px-8 border-b border-[#173D30]/10">
+              <Link
+                to="/#home"
+                onClick={(e) => {
+                  setMenuOpen(false);
+                  handleLogoClick(e);
+                }}
+                aria-label="One Wellness Clinic Home"
+              >
+                <img
+                  src={logoImg}
+                  alt="One Wellness Clinic & Research Center"
+                  className="h-[60px] w-auto object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.45)]"
+                />
+              </Link>
               <button
-              type="button"
-              onClick={() => setMenuOpen(false)}
-              aria-label="Close menu"
-              className="flex items-center gap-2 py-2 text-[10px] uppercase tracking-label text-ivory/70 transition-colors hover:text-ivory">
-              
-                Close
-                <XIcon className="h-5 w-5" aria-hidden="true" />
+                type="button"
+                onClick={() => setMenuOpen(false)}
+                aria-label="Close menu"
+                className="flex items-center gap-2 p-2 text-[12px] font-sans font-medium uppercase tracking-[0.08em] text-[#173D30] hover:text-[#D3B67C] transition-colors"
+              >
+                <span>Close</span>
+                <XIcon className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
 
+            {/* Links inside drawer */}
             <nav
-            aria-label="Mobile"
-            className="flex flex-1 flex-col justify-center overflow-y-auto px-5 pb-10 sm:px-8">
-            
-              <ul>
-                {primaryNav.map((item, i) =>
-              <motion.li
-                key={item.to}
-                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.16 + i * 0.045, ease: [0.23, 1, 0.32, 1] }}
-                className="border-b border-ivory/12">
-                
+              aria-label="Mobile Navigation"
+              className="flex flex-1 flex-col justify-between overflow-y-auto px-6 py-8 sm:px-10"
+            >
+              <ul className="space-y-4">
+                {primaryNav.map((item, i) => (
+                  <motion.li
+                    key={item.to}
+                    initial={reduce ? { opacity: 0 } : { opacity: 0, x: -12 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      duration: 0.3,
+                      delay: 0.08 + i * 0.04,
+                      ease: [0.23, 1, 0.32, 1],
+                    }}
+                    className="border-b border-[#173D30]/10 pb-3"
+                  >
                     <NavLink
-                  to={item.to}
-                  className="flex items-baseline justify-between gap-4 py-4"
-                  onClick={() => setMenuOpen(false)}>
-                  
-                      <span className="font-display text-[1.9rem] font-light leading-none sm:text-[2.4rem]">
-                        {item.label}
-                      </span>
-                      <span className="text-[10px] tracking-label text-ivory/40">
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
+                      to={item.to}
+                      className={({ isActive }) =>
+                        `flex items-center justify-between text-[1.2rem] font-sans font-medium transition-colors ${
+                          isActive
+                            ? 'text-[#B08D4F]'
+                            : 'text-[#173D30] hover:text-[#D3B67C]'
+                        }`
+                      }
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      <span>{item.label}</span>
                     </NavLink>
                   </motion.li>
-              )}
+                ))}
               </ul>
 
+              {/* Action buttons inside drawer */}
               <motion.div
-              initial={reduce ? { opacity: 0 } : { opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.55, ease: [0.23, 1, 0.32, 1] }}
-              className="mt-10 flex flex-col gap-3">
-              
+                initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.35, delay: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                className="mt-8 flex flex-col gap-3"
+              >
                 <Link
-                to="/consultation"
-                onClick={() => setMenuOpen(false)}
-                className="bg-ivory px-6 py-4 text-center text-[11px] font-medium uppercase tracking-wide2 text-ink">
-                
-                  Book Ayurvedic Consultation
+                  to="/consultation"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex h-[44px] w-full items-center justify-center bg-[#173D30] text-[#FCFAF4] text-[11px] font-sans font-medium uppercase tracking-[0.12em] transition-colors hover:bg-[#0D241C]"
+                >
+                  BOOK CONSULTATION
                 </Link>
                 <a
-                href={whatsappLink()}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="border border-ivory/40 px-6 py-4 text-center text-[11px] font-medium uppercase tracking-wide2 text-ivory">
-                
+                  href={whatsappLink()}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="flex h-[44px] w-full items-center justify-center border border-[#173D30]/30 text-[#173D30] text-[11px] font-sans font-medium uppercase tracking-[0.12em] transition-colors hover:bg-[#173D30]/5"
+                >
                   Chat on WhatsApp
                 </a>
-                <p className="mt-6 text-[11px] leading-relaxed text-ivory/45">
-                  {site.division}
-                  <br />
-                  {site.city}, Maharashtra
+                <p className="mt-4 text-center text-[11px] leading-relaxed text-[#173D30]/60">
+                  {site.division} • {site.city}, Maharashtra
                 </p>
               </motion.div>
             </nav>
-          </motion.div> :
-        null}
+          </motion.div>
+        )}
       </AnimatePresence>
-    </>);
-
+    </>
+  );
 }

@@ -13,6 +13,7 @@ export function Hero() {
 
   return (
     <section
+      id="home"
       aria-label="Introduction"
       className="relative isolate flex min-h-[92vh] flex-col justify-end overflow-hidden bg-pine pb-10 pt-32 sm:min-h-screen sm:pb-14">
       
@@ -43,28 +44,37 @@ export function Hero() {
 
       <div className="relative mx-auto w-full max-w-edge px-5 sm:px-8 lg:px-14">
         <motion.p
-          className="text-[10px] uppercase tracking-label text-ivory/60 sm:text-[11px]"
+          className="text-[11px] font-sans font-medium uppercase tracking-[0.14em] text-[#D3B67C] sm:text-[12px]"
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.35, ease }}>
-          
-          Panchakarma &amp; Ayurvedic Wellness
+          transition={{ duration: 0.8, delay: 0.35, ease }}
+        >
+          One Wellness Clinic &amp; Research Center • Nashik, India
         </motion.p>
 
-        <h1 className="mt-6 max-w-5xl font-display text-[2.7rem] font-normal leading-[1.02] text-ivory sm:text-[4.2rem] lg:text-[5.6rem] xl:text-[6.2rem]">
-          {['Restore Balance.', 'Reconnect With Wellness.'].map((line, i) =>
-          <span key={line} className="block overflow-hidden">
+        <h1 className="mt-4 max-w-5xl font-serif text-[2.7rem] font-light leading-[1.04] text-[#FCFAF4] sm:text-[4.2rem] lg:text-[5.6rem] xl:text-[6.2rem]">
+          {['Restore Balance.', 'Reconnect With Wellness.'].map((line, i) => (
+            <span key={line} className="block overflow-hidden">
               <motion.span
-              className="block"
-              initial={reduce ? { opacity: 0 } : { y: '110%' }}
-              animate={reduce ? { opacity: 1 } : { y: '0%' }}
-              transition={{ duration: 1.1, delay: 0.5 + i * 0.12, ease }}>
-              
+                className="block"
+                initial={reduce ? { opacity: 0 } : { y: '110%' }}
+                animate={reduce ? { opacity: 1 } : { y: '0%' }}
+                transition={{ duration: 1.1, delay: 0.5 + i * 0.12, ease }}
+              >
                 {line}
               </motion.span>
             </span>
-          )}
+          ))}
         </h1>
+
+        <motion.p
+          className="mt-3 font-serif text-xl sm:text-2xl italic text-[#D3B67C]"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.75, ease }}
+        >
+          “Infinite Care. Holistic Healing.”
+        </motion.p>
 
         <div className="mt-10 grid grid-cols-1 gap-8 border-t border-ivory/20 pt-8 lg:grid-cols-12 lg:items-end">
           <motion.div

@@ -1,174 +1,216 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { InstagramIcon, FacebookIcon, YoutubeIcon, MailIcon, PhoneIcon, MapPinIcon } from 'lucide-react';
-import { footerNav, localNav } from '../../data/navigation';
+import { InstagramIcon, FacebookIcon, YoutubeIcon, MailIcon, PhoneIcon, MapPinIcon, MessageSquareIcon } from 'lucide-react';
+import { localNav } from '../../data/navigation';
 import { site, whatsappLink, telLink, DISCLAIMER } from '../../config/site';
 import logoImg from '../../assets/logo.png';
+import { useBooking } from '../../context/BookingContext';
+
+const exploreLinks = [
+  { label: 'About', to: '/about' },
+  { label: 'Panchakarma', to: '/panchakarma' },
+  { label: 'Therapies', to: '/therapies' },
+  { label: 'Programs', to: '/programs' },
+  { label: 'Rejuvenation', to: '/rejuvenation' },
+  { label: 'Wellness', to: '/wellness' },
+  { label: 'FAQs', to: '/faq' },
+  { label: 'Contact', to: '/contact' }
+];
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const { openBooking } = useBooking();
 
   return (
-    <footer className="bg-pine text-ivory">
+    <footer className="bg-[#0A1D16] text-[#FCFAF4] border-t border-[#B08D4F]/20">
       <div className="mx-auto max-w-edge px-5 pb-10 pt-16 sm:px-8 sm:pt-20 lg:px-14">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-10">
+          
+          {/* LEFT COLUMN */}
           <div className="lg:col-span-5">
-            <Link to="/" className="inline-block transition-transform duration-300 hover:scale-[1.02]">
+            <Link to="/#home" className="inline-block transition-transform duration-300 hover:scale-[1.02]">
               <img
                 src={logoImg}
-                alt="PARC logo"
-                className="h-24 w-auto object-contain sm:h-28 lg:h-32 drop-shadow-[0_2px_12px_rgba(255,255,255,0.9)] filter"
+                alt="One Wellness Clinic & Research Center"
+                className="h-24 w-auto object-contain sm:h-28 lg:h-32 drop-shadow-[0_0_14px_rgba(255,255,255,0.5)]"
               />
             </Link>
-            <p className="mt-4 text-[10px] uppercase tracking-label text-ivory/60">{site.division}</p>
-            <p className="mt-3 text-[10px] uppercase tracking-label text-sage">
-              {site.positioning.join(' • ')}
+
+            <p className="mt-4 text-[11px] font-sans font-medium uppercase tracking-[0.12em] text-[#D3B67C]">
+              {site.brand}
             </p>
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-ivory/65">
+            <p className="mt-1 text-[10px] uppercase tracking-wider text-[#FCFAF4]/60">
+              Panchakarma &amp; Ayurvedic Wellness Division • Nashik, India
+            </p>
+            <p className="mt-2 text-xs uppercase tracking-widest text-[#93A893]">
+              Ayurveda • Panchakarma • Rejuvenation • Traditional Wellness
+            </p>
+
+            <p className="mt-4 max-w-sm text-sm leading-relaxed text-[#FCFAF4]/70">
               {site.shortDescription}
             </p>
 
-            <div className="mt-8 flex items-center gap-4">
+            <p className="mt-4 font-serif text-lg italic text-[#D3B67C]">
+              “Infinite Care. Holistic Healing.”
+            </p>
+
+            <div className="mt-6 flex items-center gap-3">
               <a
                 href={site.instagram}
                 aria-label="Instagram"
-                className="flex h-10 w-10 items-center justify-center border border-ivory/25 text-ivory/70 transition-colors duration-300 hover:border-ivory hover:text-ivory">
-                
+                className="flex h-10 w-10 items-center justify-center border border-[#FCFAF4]/20 text-[#FCFAF4]/70 transition-colors duration-300 hover:border-[#D3B67C] hover:text-[#D3B67C]"
+              >
                 <InstagramIcon className="h-4 w-4" aria-hidden="true" />
               </a>
               <a
                 href={site.facebook}
                 aria-label="Facebook"
-                className="flex h-10 w-10 items-center justify-center border border-ivory/25 text-ivory/70 transition-colors duration-300 hover:border-ivory hover:text-ivory">
-                
+                className="flex h-10 w-10 items-center justify-center border border-[#FCFAF4]/20 text-[#FCFAF4]/70 transition-colors duration-300 hover:border-[#D3B67C] hover:text-[#D3B67C]"
+              >
                 <FacebookIcon className="h-4 w-4" aria-hidden="true" />
               </a>
               <a
                 href={site.youtube}
                 aria-label="YouTube"
-                className="flex h-10 w-10 items-center justify-center border border-ivory/25 text-ivory/70 transition-colors duration-300 hover:border-ivory hover:text-ivory">
-                
+                className="flex h-10 w-10 items-center justify-center border border-[#FCFAF4]/20 text-[#FCFAF4]/70 transition-colors duration-300 hover:border-[#D3B67C] hover:text-[#D3B67C]"
+              >
                 <YoutubeIcon className="h-4 w-4" aria-hidden="true" />
               </a>
             </div>
           </div>
 
-          <nav aria-label="Footer" className="lg:col-span-3">
-            <h2 className="text-[10px] uppercase tracking-label text-ivory/45">Explore</h2>
+          {/* MIDDLE COLUMN: EXPLORE */}
+          <nav aria-label="Footer Navigation" className="lg:col-span-3">
+            <h2 className="text-[11px] font-sans font-medium uppercase tracking-[0.14em] text-[#D3B67C]">
+              Explore
+            </h2>
             <ul className="mt-6 space-y-3">
-              <li>
-                <a
-                  href={whatsappLink()}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="text-sm text-ivory/75 transition-colors duration-300 hover:text-ivory">
-                  
-                  WhatsApp
-                </a>
-              </li>
-              {footerNav.map((item) =>
-              <li key={item.to}>
+              {exploreLinks.map((item) => (
+                <li key={item.to}>
                   <Link
-                  to={item.to}
-                  className="text-sm text-ivory/75 transition-colors duration-300 hover:text-ivory">
-                  
+                    to={item.to}
+                    className="text-sm font-sans text-[#FCFAF4]/80 transition-colors duration-300 hover:text-[#D3B67C]"
+                  >
                     {item.label}
                   </Link>
                 </li>
-              )}
+              ))}
             </ul>
           </nav>
 
+          {/* RIGHT COLUMN: GET IN TOUCH & ACTION BUTTONS */}
           <div className="lg:col-span-4">
-            <h2 className="text-[10px] uppercase tracking-label text-ivory/45">Visit &amp; Contact</h2>
-            <address className="mt-6 space-y-4 not-italic text-sm text-ivory/75">
+            <h2 className="text-[11px] font-sans font-medium uppercase tracking-[0.14em] text-[#D3B67C]">
+              Get in Touch
+            </h2>
+            
+            <address className="mt-6 space-y-3.5 not-italic text-sm text-[#FCFAF4]/80 font-sans">
               <p className="flex gap-3">
-                <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-sage" aria-hidden="true" />
+                <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-[#93A893]" aria-hidden="true" />
                 <span>
-                  {site.addressLines.map((line) =>
-                  <span key={line} className="block">
+                  {site.addressLines.map((line) => (
+                    <span key={line} className="block">
                       {line}
                     </span>
-                  )}
+                  ))}
                   <a
                     href={site.mapsUrl}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="mt-2 inline-block text-[10px] uppercase tracking-label text-ivory/50 underline underline-offset-4 transition-colors hover:text-ivory">
-                    
-                    View on map
+                    className="mt-1 inline-block text-[10px] uppercase tracking-wider text-[#D3B67C] underline underline-offset-4 hover:text-white"
+                  >
+                    View location on map
                   </a>
                 </span>
               </p>
+
               <p className="flex items-center gap-3">
-                <PhoneIcon className="h-4 w-4 shrink-0 text-sage" aria-hidden="true" />
-                <a href={telLink()} className="transition-colors hover:text-ivory">
+                <PhoneIcon className="h-4 w-4 shrink-0 text-[#93A893]" aria-hidden="true" />
+                <a href={telLink()} className="transition-colors hover:text-[#D3B67C]">
                   {site.phone}
                 </a>
               </p>
+
               <p className="flex items-center gap-3">
-                <MailIcon className="h-4 w-4 shrink-0 text-sage" aria-hidden="true" />
-                <a href={`mailto:${site.email}`} className="transition-colors hover:text-ivory">
+                <MailIcon className="h-4 w-4 shrink-0 text-[#93A893]" aria-hidden="true" />
+                <a href={`mailto:${site.email}`} className="transition-colors hover:text-[#D3B67C]">
                   {site.email}
                 </a>
               </p>
             </address>
 
-            <dl className="mt-7 space-y-2 text-sm text-ivory/65">
-              {site.workingHours.map((h) =>
-              <div key={h.days} className="flex justify-between gap-4 border-b border-ivory/10 pb-2">
-                  <dt>{h.days}</dt>
-                  <dd className="text-ivory/50">{h.hours}</dd>
-                </div>
-              )}
-            </dl>
+            {/* Action Buttons */}
+            <div className="mt-8 flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={() => openBooking()}
+                className="h-11 px-6 bg-[#B08D4F] text-[#102A20] text-[11px] font-sans font-bold uppercase tracking-[0.12em] flex items-center justify-center transition-all duration-300 hover:bg-[#D3B67C]"
+              >
+                BOOK CONSULTATION
+              </button>
+              
+              <a
+                href={whatsappLink()}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="h-11 px-6 border border-[#FCFAF4]/30 text-[#FCFAF4] text-[11px] font-sans font-medium uppercase tracking-[0.12em] flex items-center justify-center gap-2 transition-all duration-300 hover:bg-[#FCFAF4]/10 hover:border-[#D3B67C]"
+              >
+                <MessageSquareIcon className="h-4 w-4 text-[#D3B67C]" />
+                <span>WHATSAPP</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className="mt-14 border-t border-ivory/12 pt-8">
-          <h2 className="text-[10px] uppercase tracking-label text-ivory/45">Ayurveda in Nashik</h2>
+        {/* Nashik Local Links */}
+        <div className="mt-14 border-t border-[#FCFAF4]/10 pt-8">
+          <h2 className="text-[10px] uppercase tracking-widest text-[#D3B67C]">
+            Panchakarma Clinic in Nashik • Ayurvedic Wellness Centre in Nashik
+          </h2>
           <ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
-            {localNav.map((item) =>
-            <li key={item.to}>
+            {localNav.map((item) => (
+              <li key={item.to}>
                 <Link
-                to={item.to}
-                className="text-xs text-ivory/55 transition-colors duration-300 hover:text-ivory">
-                
+                  to={item.to}
+                  className="text-xs text-[#FCFAF4]/60 transition-colors duration-300 hover:text-[#D3B67C]"
+                >
                   {item.label}
                 </Link>
               </li>
-            )}
+            ))}
           </ul>
         </div>
 
-        <div className="mt-10 border-t border-ivory/12 pt-8">
-          <h2 className="text-[10px] uppercase tracking-label text-ivory/45">Disclaimer</h2>
-          <p className="mt-3 max-w-4xl text-xs leading-relaxed text-ivory/45">{DISCLAIMER}</p>
+        {/* Disclaimer */}
+        <div className="mt-8 border-t border-[#FCFAF4]/10 pt-6">
+          <h2 className="text-[10px] uppercase tracking-wider text-[#FCFAF4]/50">Disclaimer</h2>
+          <p className="mt-2 max-w-4xl text-xs leading-relaxed text-[#FCFAF4]/45">{DISCLAIMER}</p>
         </div>
 
-        <div className="mt-10 flex flex-col gap-4 border-t border-ivory/12 pt-6 text-[11px] text-ivory/40 sm:flex-row sm:items-center sm:justify-between">
+        {/* Footer Bottom bar */}
+        <div className="mt-8 flex flex-col gap-4 border-t border-[#FCFAF4]/10 pt-6 text-[11px] text-[#FCFAF4]/50 sm:flex-row sm:items-center sm:justify-between font-sans">
           <p>
-            © {year} PARC Clinic &amp; Research Center. All rights reserved.
+            © {year} One Wellness Clinic &amp; Research Center. All rights reserved.
           </p>
           <ul className="flex flex-wrap gap-x-6 gap-y-2">
             <li>
-              <Link to="/privacy" className="transition-colors hover:text-ivory">
+              <Link to="/privacy" className="transition-colors hover:text-[#D3B67C]">
                 Privacy Policy
               </Link>
             </li>
             <li>
-              <Link to="/terms" className="transition-colors hover:text-ivory">
+              <Link to="/terms" className="transition-colors hover:text-[#D3B67C]">
                 Terms
               </Link>
             </li>
             <li>
-              <Link to="/disclaimer" className="transition-colors hover:text-ivory">
+              <Link to="/disclaimer" className="transition-colors hover:text-[#D3B67C]">
                 Disclaimer
               </Link>
             </li>
           </ul>
         </div>
       </div>
-    </footer>);
-
+    </footer>
+  );
 }

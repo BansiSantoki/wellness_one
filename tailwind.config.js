@@ -1,29 +1,37 @@
-export default {content: [
-  './index.html',
-  './src/**/*.{js,ts,jsx,tsx}'
-],
+export default {
+  content: [
+    './index.html',
+    './src/**/*.{js,ts,jsx,tsx}'
+  ],
   theme: {
     extend: {
       colors: {
-        ivory: '#FAF7F1',
-        cream: '#F3EDE2',
-        sand: '#E4D9C6',
-        clay: '#C6B096',
+        deepForest: '#102A20',
+        forest: '#1B4132',
+        warmIvory: '#F6F1E6',
+        cream: '#FCFAF4',
+        warmBeige: '#E8DFCC',
+        mutedGold: '#B08D4F',
+        lightGold: '#D3B67C',
+        charcoal: '#25231F',
+        sage: '#93A893',
+        // Legacy fallbacks mapped to new luxury palette
+        ivory: '#FCFAF4',
+        sand: '#E8DFCC',
         bark: '#6B5644',
-        sage: '#93A288',
-        moss: '#5C6B52',
-        forest: '#2B3A2E',
-        pine: '#1C271E',
-        ink: '#191814',
+        moss: '#1B4132',
+        pine: '#102A20',
+        ink: '#25231F',
         stone: '#8A8578',
       },
       fontFamily: {
-        display: ['"Lora"', 'Georgia', 'serif'],
-        sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Cormorant Garamond"', '"Lora"', 'Georgia', 'serif'],
+        serif: ['"Cormorant Garamond"', '"Lora"', 'Georgia', 'serif'],
+        sans: ['"Inter"', '"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
-        label: '0.06em',
-        wide2: '0.04em',
+        label: '0.08em',
+        wide2: '0.05em',
       },
       transitionTimingFunction: {
         calm: 'cubic-bezier(0.23, 1, 0.32, 1)',

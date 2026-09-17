@@ -52,21 +52,21 @@ export function CustomCursor() {
       aria-hidden="true">
       
       <motion.div
-        className="flex items-center justify-center rounded-full bg-ivory text-[9px] uppercase tracking-label text-ink mix-blend-difference"
+        className="flex items-center justify-center rounded-full bg-[#9A9A94] border border-[#5F5F5F]/40 text-[9px] font-sans font-medium uppercase tracking-label text-white shadow-xs"
         animate={{
-          width: active ? 68 : 10,
-          height: active ? 68 : 10,
-          marginLeft: active ? -34 : -5,
-          marginTop: active ? -34 : -5,
+          width: active ? 68 : 12,
+          height: active ? 68 : 12,
+          marginLeft: active ? -34 : -6,
+          marginTop: active ? -34 : -6,
           opacity: pressed ? 0.6 : 1
         }}
-        transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}>
-        
+        transition={{ duration: 0.28, ease: [0.23, 1, 0.32, 1] }}
+      >
         <motion.span
           animate={{ opacity: active ? 1 : 0 }}
           transition={{ duration: 0.2 }}
-          className="select-none">
-          
+          className="select-none text-[#102A20] font-bold"
+        >
           View
         </motion.span>
       </motion.div>

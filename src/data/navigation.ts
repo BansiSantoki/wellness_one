@@ -4,15 +4,15 @@ export interface NavItem {
 }
 
 export const primaryNav: NavItem[] = [
-{ label: 'Home', to: '/' },
-{ label: 'About', to: '/about' },
-{ label: 'Panchakarma', to: '/panchakarma' },
-{ label: 'Therapies', to: '/therapies' },
-{ label: 'Programs', to: '/programs' },
-{ label: 'Rejuvenation', to: '/rejuvenation' },
-{ label: 'Wellness', to: '/wellness' },
-{ label: 'FAQs', to: '/faq' },
-{ label: 'Contact', to: '/contact' }];
+  { label: 'About', to: '/about' },
+  { label: 'Panchakarma', to: '/panchakarma' },
+  { label: 'Therapies', to: '/therapies' },
+  { label: 'Programs', to: '/programs' },
+  { label: 'Rejuvenation', to: '/rejuvenation' },
+  { label: 'Wellness', to: '/wellness' },
+  { label: 'FAQs', to: '/faq' },
+  { label: 'Contact', to: '/contact' }
+];
 
 
 export const footerNav: NavItem[] = [

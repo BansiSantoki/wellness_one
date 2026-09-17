@@ -326,14 +326,14 @@ export function ConsultationForm({
                   </div>
 
                   <button
-                  type="submit"
-                  className="group mt-10 inline-flex w-full items-center justify-center gap-3 bg-forest px-7 py-4 text-[11px] font-medium uppercase tracking-wide2 text-ivory transition-colors duration-300 ease-calm hover:bg-pine sm:w-auto">
-                  
-                    Submit Enquiry
+                    type="submit"
+                    className="group mt-10 inline-flex w-full items-center justify-center gap-3 bg-[#102A20] px-8 py-4 text-[11px] font-sans font-medium uppercase tracking-[0.14em] text-white transition-all duration-300 ease-calm hover:bg-[#B08D4F] hover:text-[#102A20] sm:w-auto"
+                  >
+                    <span>BOOK CONSULTATION</span>
                     <ArrowRightIcon
-                    className="h-4 w-4 transition-transform duration-300 ease-calm group-hover:translate-x-1"
-                    aria-hidden="true" />
-                  
+                      className="h-4 w-4 transition-transform duration-300 ease-calm group-hover:translate-x-1"
+                      aria-hidden="true"
+                    />
                   </button>
 
                   <p className="mt-6 text-xs leading-relaxed text-ink/45">
