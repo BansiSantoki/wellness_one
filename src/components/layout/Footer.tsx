@@ -28,11 +28,16 @@ export function Footer() {
           
           {/* LEFT COLUMN */}
           <div className="lg:col-span-5">
-            <Link to="/#home" className="inline-block transition-transform duration-300 hover:scale-[1.02]">
+            <Link to="/#home" className="relative inline-block transition-transform duration-300 hover:scale-[1.02]">
+              {/* Soft ambient white radial glow behind logo for crisp contrast */}
+              <div
+                className="absolute inset-0 -m-3 rounded-full bg-white/20 blur-xl pointer-events-none"
+                aria-hidden="true"
+              />
               <img
                 src={logoImg}
                 alt="One Wellness Clinic & Research Center"
-                className="h-24 w-auto object-contain sm:h-28 lg:h-32 drop-shadow-[0_0_14px_rgba(255,255,255,0.5)]"
+                className="relative z-10 h-24 w-auto object-contain sm:h-28 lg:h-32 drop-shadow-[0_0_18px_rgba(255,255,255,0.8)]"
               />
             </Link>
 
