@@ -92,7 +92,7 @@ export function Navbar({ overDark }: NavbarProps) {
             <img
               src={logoImg}
               alt="One Wellness Clinic & Research Center"
-              className="h-[60px] w-auto object-contain sm:h-[68px] lg:h-[72px] transition-all duration-300 drop-shadow-[0_0_14px_rgba(255,255,255,0.5)]"
+              className="h-[68px] w-auto object-contain sm:h-[80px] lg:h-[88px] transition-all duration-300 drop-shadow-[0_0_14px_rgba(255,255,255,0.5)]"
             />
           </Link>
 
@@ -182,7 +182,7 @@ export function Navbar({ overDark }: NavbarProps) {
                 <img
                   src={logoImg}
                   alt="One Wellness Clinic & Research Center"
-                  className="h-[60px] w-auto object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.45)]"
+                  className="h-[68px] w-auto object-contain drop-shadow-[0_0_12px_rgba(255,255,255,0.45)]"
                 />
               </Link>
               <button

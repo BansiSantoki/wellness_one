@@ -37,7 +37,7 @@ export function Footer() {
               <img
                 src={logoImg}
                 alt="One Wellness Clinic & Research Center"
-                className="relative z-10 h-24 w-auto object-contain sm:h-28 lg:h-32 drop-shadow-[0_0_18px_rgba(255,255,255,0.8)]"
+                className="relative z-10 h-28 w-auto object-contain sm:h-32 lg:h-36 drop-shadow-[0_0_18px_rgba(255,255,255,0.8)]"
               />
             </Link>
 
