@@ -29,28 +29,30 @@ export function Footer() {
           {/* LEFT COLUMN */}
           <div className="lg:col-span-5">
             <Link to="/#home" className="relative inline-block transition-transform duration-300 hover:scale-[1.02]">
-              <img
-                src={logoImg}
-                alt="One Wellness Clinic & Research Center"
-                className="relative z-10 h-20 w-auto max-w-[280px] object-contain sm:h-24 lg:h-28"
-              />
+              <div className="rounded-[12px] border border-[#F5F0E5]/80 bg-[#0A1D16]/10 p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.16),0_0_18px_rgba(255,255,255,0.10)]">
+                <img
+                  src={logoImg}
+                  alt="One Wellness Clinic & Research Center"
+                  className="relative z-10 h-24 w-auto max-w-[320px] object-contain sm:h-28 lg:h-32 drop-shadow-[0_0_12px_rgba(255,255,255,0.28)]"
+                />
+              </div>
             </Link>
 
-            <p className="mt-4 text-[11px] font-sans font-medium uppercase tracking-[0.12em] text-[#D3B67C]">
+            <p className="mt-5 text-[11px] font-sans font-medium uppercase tracking-[0.18em] text-[#D3B67C]">
               {site.brand}
             </p>
-            <p className="mt-1 text-[10px] uppercase tracking-wider text-[#FCFAF4]/60">
+            <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-[#FCFAF4]/60">
               Panchakarma &amp; Ayurvedic Wellness Division • Nashik, India
             </p>
-            <p className="mt-2 text-xs uppercase tracking-widest text-[#93A893]">
+            <p className="mt-3 text-[10px] uppercase tracking-[0.2em] text-[#93A893]">
               Ayurveda • Panchakarma • Rejuvenation • Traditional Wellness
             </p>
 
-            <p className="mt-4 max-w-sm text-sm leading-relaxed text-[#FCFAF4]/70">
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-[#FCFAF4]/70">
               {site.shortDescription}
             </p>
 
-            <p className="mt-4 font-serif text-lg italic text-[#D3B67C]">
+            <p className="mt-5 font-serif text-lg italic text-[#D3B67C]">
               “Infinite Care. Holistic Healing.”
             </p>
 
