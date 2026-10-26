@@ -37,25 +37,34 @@ export function Home() {
         id="ld-organisation"
         data={{
           '@context': 'https://schema.org',
-          '@type': 'HealthAndBeautyBusiness',
+          '@type': 'MedicalBusiness',
           name: site.brand,
           description: site.shortDescription,
+          url: site.websiteUrl,
           address: {
             '@type': 'PostalAddress',
-            addressLocality: site.city,
-            addressRegion: 'Maharashtra',
+            streetAddress: `${site.address.shop}, ${site.address.building}, ${site.address.locality}, ${site.address.landmark}`,
+            addressLocality: site.address.city,
+            addressRegion: site.address.state,
+            postalCode: site.address.pincode,
             addressCountry: 'IN'
           },
           telephone: site.phone,
           email: site.email,
           image: img.hero,
           areaServed: 'Nashik',
+          founder: {
+            '@type': 'Person',
+            name: site.doctor.name,
+            jobTitle: site.doctor.profession
+          },
           makesOffer: [
-          { '@type': 'Offer', name: 'Ayurvedic Wellness Consultation' },
-          { '@type': 'Offer', name: 'Panchakarma Wellness Program' },
-          { '@type': 'Offer', name: 'Ayurvedic Rejuvenation Program' }]
-
-        }} />
+            { '@type': 'Offer', name: 'Ayurvedic Wellness Consultation' },
+            { '@type': 'Offer', name: 'Panchakarma Wellness Program' },
+            { '@type': 'Offer', name: 'Ayurvedic Rejuvenation Program' }
+          ]
+        }}
+      />
       
       <Hero />
       <IntroEditorial />

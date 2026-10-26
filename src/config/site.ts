@@ -16,12 +16,30 @@ export interface SiteConfig {
   whatsapp: string;
   whatsappMessage: string;
   email: string;
+  website: string;
+  websiteUrl: string;
+  doctor: {
+    name: string;
+    qualifications: string;
+    profession: string;
+    registrationNumber: string;
+  };
+  address: {
+    shop: string;
+    building: string;
+    locality: string;
+    landmark: string;
+    city: string;
+    state: string;
+    pincode: string;
+    country: string;
+    formatted: string;
+  };
   addressLines: string[];
   mapsUrl: string;
   instagram: string;
-  facebook: string;
-  youtube: string;
-  workingHours: {days: string;hours: string;}[];
+  justdial: string;
+  workingHours: { days: string; hours: string }[];
   /** Optional hero background video URL (mp4). Leave empty to use the still image. */
   heroVideoUrl: string;
 }
@@ -35,16 +53,41 @@ export const site: SiteConfig = {
     'A personalised Ayurvedic wellness experience inspired by traditional principles and designed for modern lifestyles.',
   city: 'Nashik',
 
-  phone: '+91 98765 43210',
-  whatsapp: '919876543210',
+  doctor: {
+    name: 'Dr. Shubham Mahajan',
+    qualifications: 'BAMS, DYS',
+    profession: 'Ayurveda Consultant and Agnikarma Specialist',
+    registrationNumber: 'I-124470-A'
+  },
+
+  phone: '+91 9175893553',
+  whatsapp: '919175893553',
   whatsappMessage:
     'Hello, I would like to know more about your Panchakarma and Ayurvedic wellness programs.',
-  email: 'info@onewellness.in',
-  addressLines: ['One Wellness Clinic & Research Center', 'Nashik, Maharashtra, India'],
-  mapsUrl: 'https://maps.google.com/?q=Nashik',
-  instagram: '#',
-  facebook: '#',
-  youtube: '#',
+  email: '1wellnessclinic@gmail.com',
+  website: 'www.1wellnessclinic.in',
+  websiteUrl: 'https://www.1wellnessclinic.in',
+  address: {
+    shop: 'Shop No. 7071, 7th Floor',
+    building: 'Roongtha Shopping Hub',
+    locality: 'Indira Nagar',
+    landmark: 'Agra-Mumbai Highway',
+    city: 'Nashik',
+    state: 'Maharashtra',
+    pincode: '422009',
+    country: 'India',
+    formatted:
+      'Shop No. 7071, 7th Floor, Roongtha Shopping Hub, Indira Nagar, Agra-Mumbai Highway, Nashik, Maharashtra 422009, India'
+  },
+  addressLines: [
+    'Shop No. 7071, 7th Floor, Roongtha Shopping Hub',
+    'Indira Nagar, Agra-Mumbai Highway',
+    'Nashik, Maharashtra 422009, India'
+  ],
+  mapsUrl: 'https://maps.app.goo.gl/4WWpYQcaRed2tqJEA?g_st=awb',
+  instagram: 'https://www.instagram.com/onewellness.in/',
+  justdial:
+    'https://www.justdial.com/Nashik/One-Wellness-Clinic---Research-Centre-Indira-Nagar-Nashik/0253PX253-X253-260720175456-R3W1_BZDET/writereview?&utm_campaign=BIZQR&utm_medium=referral&utm_source=QR_Code&via=scode',
 
   workingHours: [
     { days: 'Monday – Saturday', hours: '09:00 AM – 07:00 PM' },
@@ -57,7 +100,11 @@ export const site: SiteConfig = {
 export const whatsappLink = (message: string = site.whatsappMessage): string =>
   `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
 
-export const telLink = (): string => `tel:${site.phone.replace(/\s/g, '')}`;
+export const telLink = (): string => `tel:${site.phone.replace(/[^0-9+]/g, '')}`;
+
+export const mailLink = (): string => `mailto:${site.email}`;
+
+export const websiteLink = (): string => site.websiteUrl;
 
 export const DISCLAIMER =
   'Disclaimer: The information provided on this website is intended for general educational and wellness purposes and should not be considered a substitute for professional medical advice, diagnosis or treatment. Panchakarma and Ayurvedic therapies are traditional practices and may not be appropriate for everyone. Individual therapy selection, duration and suitability are determined following consultation with a qualified practitioner. Results and experiences may vary.';

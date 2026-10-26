@@ -86,8 +86,8 @@ const CONTENT: Record<LegalKind, {title: string;path: string;intro: string;secti
     {
       heading: 'Practitioner details',
       body: [
-      'We publish practitioner qualifications and registration details only once verified. Where these are not yet listed, the profile area on our About page is marked as awaiting confirmation.']
-
+        `Clinical consultations and therapies are guided by Dr. ${site.doctor.name.replace(/^Dr\.\s*/, '')} (${site.doctor.qualifications}, Reg. No. ${site.doctor.registrationNumber}), whose verified credentials and qualifications are published across our About and Contact pages.`
+      ]
     }]
 
   }

@@ -5,7 +5,7 @@ import { SectionLabel } from '../ui/SectionLabel';
 import { RevealText } from '../ui/RevealText';
 import { Reveal } from '../ui/Reveal';
 import { img } from '../../data/images';
-import { site, whatsappLink } from '../../config/site';
+import { site, whatsappLink, telLink } from '../../config/site';
 
 const GOALS = [
 'Panchakarma',
@@ -108,10 +108,14 @@ export function ConsultationForm({
                 target="_blank"
                 rel="noreferrer noopener"
                 className="text-moss underline underline-offset-4 transition-colors hover:text-forest">
-                
                 Message us on WhatsApp
               </a>{' '}
-              or call {site.phone}.
+              or call{' '}
+              <a
+                href={telLink()}
+                className="text-moss underline underline-offset-4 transition-colors hover:text-forest">
+                {site.phone}
+              </a>.
             </p>
           </Reveal>
         </div>

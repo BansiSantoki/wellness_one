@@ -27,9 +27,9 @@ const EXPECT = [
 
 export function Consultation() {
   useSeo({
-    title: 'Book an Ayurvedic Consultation in Nashik | One Wellness',
+    title: 'Book an Ayurvedic Consultation in Nashik | Dr. Shubham Mahajan | One Wellness',
     description:
-    'Book an Ayurvedic consultation in Nashik at One Wellness Clinic & Research Center. ₹1,000 — assessment, lifestyle discussion and personalised therapy suggestions.',
+      'Book an Ayurvedic consultation in Nashik with Dr. Shubham Mahajan (BAMS, DYS, Reg. No. I-124470-A) at One Wellness Clinic & Research Center. Assessment, lifestyle discussion and personalised therapy suggestions.',
     path: '/consultation',
     image: img.consultation
   });
@@ -39,13 +39,16 @@ export function Consultation() {
       <PageHero
         eyebrow="Ayurvedic Consultation"
         title="Every Journey Starts With a Conversation"
-        lede="Nothing is recommended before we understand the individual. The consultation is where your routine, concerns and goals are discussed — and where any program is decided."
+        lede="Nothing is recommended before we understand the individual. Consult Dr. Shubham Mahajan (BAMS, DYS) to evaluate your constitution, discuss health concerns, and structure a personalised therapy program."
         image={img.consultation}
         alt="An Ayurvedic practitioner in conversation with a visitor during a consultation"
         meta={[
-        { label: 'Consultation fee', value: '₹1,000' },
-        { label: 'Required before', value: 'All programs' }]
-        } />
+          { label: 'Consultant', value: 'Dr. Shubham Mahajan' },
+          { label: 'Qualifications', value: 'BAMS, DYS' },
+          { label: 'Consultation fee', value: '₹1,000' },
+          { label: 'Required before', value: 'All programs' }
+        ]}
+      />
       
 
       <section aria-labelledby="expect-heading" className="bg-ivory">

@@ -1,9 +1,9 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { InstagramIcon, FacebookIcon, YoutubeIcon, MailIcon, PhoneIcon, MapPinIcon, MessageSquareIcon } from 'lucide-react';
+import { InstagramIcon, MailIcon, PhoneIcon, MapPinIcon, MessageSquareIcon, GlobeIcon } from 'lucide-react';
 import { localNav } from '../../data/navigation';
 import { site, whatsappLink, telLink, DISCLAIMER } from '../../config/site';
 import logoImg from '../../assets/logo.png';
+import doctorImg from '../../assets/dr_shubham_mahajan.jpg';
 import { useBooking } from '../../context/BookingContext';
 
 const exploreLinks = [
@@ -29,11 +29,11 @@ export function Footer() {
           {/* LEFT COLUMN */}
           <div className="lg:col-span-5">
             <Link to="/#home" className="relative inline-block transition-transform duration-300 hover:scale-[1.02]">
-              <div className="rounded-[12px] border border-[#F5F0E5]/80 bg-[#0A1D16]/10 p-2 shadow-[0_0_0_1px_rgba(255,255,255,0.16),0_0_18px_rgba(255,255,255,0.10)]">
+              <div className="rounded-full border border-[#D3B67C]/40 bg-white/95 p-2 shadow-[0_0_20px_rgba(211,182,124,0.25)]">
                 <img
                   src={logoImg}
                   alt="One Wellness Clinic & Research Center"
-                  className="relative z-10 h-24 w-auto max-w-[320px] object-contain sm:h-28 lg:h-32 drop-shadow-[0_0_12px_rgba(255,255,255,0.28)]"
+                  className="relative z-10 h-24 w-24 object-contain sm:h-28 sm:w-28 drop-shadow-sm"
                 />
               </div>
             </Link>
@@ -56,27 +56,30 @@ export function Footer() {
               “Infinite Care. Holistic Healing.”
             </p>
 
-            <div className="mt-6 flex items-center gap-3">
+            {/* Social & Review Links */}
+            <div className="mt-6 flex flex-wrap items-center gap-3">
               <a
                 href={site.instagram}
-                aria-label="Instagram"
-                className="flex h-10 w-10 items-center justify-center border border-[#FCFAF4]/20 text-[#FCFAF4]/70 transition-colors duration-300 hover:border-[#D3B67C] hover:text-[#D3B67C]"
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Follow Us on Instagram"
+                className="inline-flex items-center gap-2.5 rounded-none border border-[#D3B67C]/50 bg-[#D3B67C]/15 px-4 py-2 text-[11px] font-sans font-semibold uppercase tracking-[0.14em] text-[#D3B67C] transition-all duration-300 hover:bg-[#D3B67C] hover:text-[#0A1D16]"
               >
                 <InstagramIcon className="h-4 w-4" aria-hidden="true" />
+                <span>Follow Us on Instagram</span>
               </a>
+
               <a
-                href={site.facebook}
-                aria-label="Facebook"
-                className="flex h-10 w-10 items-center justify-center border border-[#FCFAF4]/20 text-[#FCFAF4]/70 transition-colors duration-300 hover:border-[#D3B67C] hover:text-[#D3B67C]"
+                href={site.justdial}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-label="Review One Wellness on Justdial"
+                className="inline-flex items-center gap-2.5 rounded-none border border-[#FF6B00]/40 bg-[#FF6B00]/10 px-4 py-2 text-[11px] font-sans font-semibold uppercase tracking-[0.14em] text-[#FF9E4A] transition-all duration-300 hover:bg-[#FF6B00] hover:text-white"
               >
-                <FacebookIcon className="h-4 w-4" aria-hidden="true" />
-              </a>
-              <a
-                href={site.youtube}
-                aria-label="YouTube"
-                className="flex h-10 w-10 items-center justify-center border border-[#FCFAF4]/20 text-[#FCFAF4]/70 transition-colors duration-300 hover:border-[#D3B67C] hover:text-[#D3B67C]"
-              >
-                <YoutubeIcon className="h-4 w-4" aria-hidden="true" />
+                <span className="flex h-4 px-1 items-center justify-center rounded-xs bg-[#FF6B00] text-[9px] font-bold text-white">
+                  JD
+                </span>
+                <span>Review on Justdial</span>
               </a>
             </div>
           </div>
@@ -109,7 +112,7 @@ export function Footer() {
             <address className="mt-6 space-y-3.5 not-italic text-sm text-[#FCFAF4]/80 font-sans">
               <p className="flex gap-3">
                 <MapPinIcon className="mt-0.5 h-4 w-4 shrink-0 text-[#93A893]" aria-hidden="true" />
-                <span>
+                <span className="leading-relaxed">
                   {site.addressLines.map((line) => (
                     <span key={line} className="block">
                       {line}
@@ -119,7 +122,7 @@ export function Footer() {
                     href={site.mapsUrl}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="mt-1 inline-block text-[10px] uppercase tracking-wider text-[#D3B67C] underline underline-offset-4 hover:text-white"
+                    className="mt-1.5 inline-block text-[10px] uppercase tracking-wider text-[#D3B67C] underline underline-offset-4 hover:text-white"
                   >
                     View location on map
                   </a>
@@ -139,7 +142,47 @@ export function Footer() {
                   {site.email}
                 </a>
               </p>
+
+              <p className="flex items-center gap-3">
+                <GlobeIcon className="h-4 w-4 shrink-0 text-[#93A893]" aria-hidden="true" />
+                <a
+                  href={site.websiteUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="transition-colors hover:text-[#D3B67C]"
+                >
+                  {site.website}
+                </a>
+              </p>
             </address>
+
+            {/* Doctor & Professional Details */}
+            <div className="mt-6 border-t border-[#FCFAF4]/10 pt-4 text-xs">
+              <p className="text-[10px] uppercase tracking-[0.16em] text-[#D3B67C] font-semibold">
+                Ayurvedic Consultation &amp; Care
+              </p>
+              <div className="mt-3 flex items-center gap-3.5">
+                <img
+                  src={doctorImg}
+                  alt={site.doctor.name}
+                  className="h-16 w-16 shrink-0 rounded-full object-cover border-2 border-[#D3B67C] shadow-[0_0_12px_rgba(211,182,124,0.35)]"
+                />
+                <div>
+                  <p className="font-serif text-base text-white font-medium">
+                    {site.doctor.name}{' '}
+                    <span className="text-xs font-sans text-[#D3B67C]">
+                      ({site.doctor.qualifications})
+                    </span>
+                  </p>
+                  <p className="mt-0.5 text-[11px] text-[#FCFAF4]/70">
+                    {site.doctor.profession}
+                  </p>
+                  <p className="mt-1 text-[10px] uppercase tracking-wider text-[#93A893]">
+                    Reg. No: {site.doctor.registrationNumber}
+                  </p>
+                </div>
+              </div>
+            </div>
 
             {/* Action Buttons */}
             <div className="mt-8 flex flex-col gap-3">

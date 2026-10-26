@@ -21,9 +21,9 @@ const PHILOSOPHY = [
 
 export function About() {
   useSeo({
-    title: 'About One Wellness Clinic & Research Center | Nashik',
+    title: 'About One Wellness Clinic & Research Center | Dr. Shubham Mahajan | Nashik',
     description:
-    'One Wellness Clinic & Research Center in Nashik — a contemporary space inspired by traditional wellness wisdom, and home to our Panchakarma & Ayurvedic Wellness Division.',
+      'One Wellness Clinic & Research Center in Nashik — clinical guidance by Dr. Shubham Mahajan (BAMS, DYS). Located at Roongtha Shopping Hub, Indira Nagar, Agra-Mumbai Highway, Nashik.',
     path: '/about',
     image: img.retreat
   });

@@ -350,16 +350,18 @@ export const localPages: LocalPage[] = [
   {
     heading: 'Our clinical team',
     paragraphs: [
-    'Ayurvedic therapy at One Wellness is delivered under the guidance of a qualified Ayurvedic practitioner. Practitioner details, including qualification and registration, are published on our About page and updated as the clinical team is confirmed.']
-
+      'Ayurvedic therapy at One Wellness is guided by Dr. Shubham Mahajan (BAMS, DYS, Reg. No. I-124470-A), Ayurveda Consultant and Agnikarma Specialist. Detailed practitioner qualifications and registration are published on our About and Contact pages.'
+    ]
   }],
 
   factsLabel: 'The centre at a glance',
   facts: [
-  { label: 'Division', value: 'Panchakarma & Ayurvedic Wellness' },
-  { label: 'Location', value: 'Nashik, Maharashtra' },
-  { label: 'Consultation', value: '₹1,000' },
-  { label: 'Appointments', value: 'Preferred in advance' }],
+    { label: 'Division', value: 'Panchakarma & Ayurvedic Wellness' },
+    { label: 'Location', value: 'Roongtha Shopping Hub, Indira Nagar, Nashik' },
+    { label: 'Consultant', value: 'Dr. Shubham Mahajan (BAMS, DYS)' },
+    { label: 'Consultation', value: '₹1,000' },
+    { label: 'Appointments', value: 'Preferred in advance' }
+  ],
 
   cta: {
     heading: 'Plan your visit',

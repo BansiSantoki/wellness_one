@@ -298,7 +298,7 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                     <input
                       type="tel"
                       required
-                      placeholder="+91 98765 43210"
+                      placeholder="+91 9175893553"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="w-full h-10 px-3 bg-white border border-[#E8DFCC] text-[#25231F] text-sm focus:border-[#B08D4F] focus:outline-none"

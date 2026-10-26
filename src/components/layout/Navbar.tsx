@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState, type MouseEvent } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { MenuIcon, XIcon } from 'lucide-react';
@@ -53,7 +53,7 @@ export function Navbar({ overDark }: NavbarProps) {
 
   const textColor = light ? 'text-white' : 'text-[#173D30]';
 
-  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleLogoClick = (e: MouseEvent<HTMLAnchorElement>) => {
     if (pathname === '/') {
       e.preventDefault();
       const elem = document.getElementById('home');
@@ -92,7 +92,7 @@ export function Navbar({ overDark }: NavbarProps) {
             <img
               src={logoImg}
               alt="One Wellness Clinic & Research Center"
-              className="h-[52px] w-auto object-contain sm:h-[60px] lg:h-[72px] transition-all duration-300"
+              className="h-[54px] w-[54px] sm:h-[62px] sm:w-[62px] lg:h-[70px] lg:w-[70px] object-contain transition-all duration-300 drop-shadow-xs"
             />
           </Link>
 
@@ -182,7 +182,7 @@ export function Navbar({ overDark }: NavbarProps) {
                 <img
                   src={logoImg}
                   alt="One Wellness Clinic & Research Center"
-                  className="h-[52px] w-auto object-contain"
+                  className="h-[54px] w-[54px] object-contain drop-shadow-xs"
                 />
               </Link>
               <button

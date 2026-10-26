@@ -5,6 +5,8 @@ import { Reveal } from '../ui/Reveal';
 import { ImageReveal } from '../ui/ImageReveal';
 import { img } from '../../data/images';
 
+import { site } from '../../config/site';
+
 export function FounderSection() {
   return (
     <section aria-labelledby="founder-heading" className="bg-cream">
@@ -15,35 +17,36 @@ export function FounderSection() {
               src={img.interiorDetail}
               alt="Afternoon light falling across a lime-plaster wall and a carved teak screen at the centre"
               ratio="aspect-[4/5]"
-              caption="Photograph to be updated" />
-            
+              caption="Clinical sanctuary, Nashik"
+            />
           </div>
 
           <div className="lg:col-span-6 lg:col-start-7 lg:pt-8">
-            <SectionLabel>Our founding vision</SectionLabel>
+            <SectionLabel>Our clinical vision</SectionLabel>
             <RevealText
               as="h2"
               id="founder-heading"
-              text="Dr. Sohan S. Chouhan"
-              className="mt-6 font-display text-[2.2rem] font-light leading-[1.08] text-ink sm:text-[2.9rem]" />
-            
+              text={site.doctor.name}
+              className="mt-6 font-display text-[2.2rem] font-light leading-[1.08] text-ink sm:text-[2.9rem]"
+            />
+
             <Reveal delay={0.06}>
               <p className="mt-3 text-[10px] uppercase tracking-label text-moss">
-                Founder / Director
+                {site.doctor.profession} • {site.doctor.qualifications}
               </p>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mt-8 max-w-xl text-[0.95rem] leading-relaxed text-ink/65">
-                Dr. Sohan S. Chouhan is part of the founding vision of One Wellness Clinic &amp;
-                Research Center, with an emphasis on creating an integrated platform for wellbeing,
-                personalised care and research-oriented wellness initiatives.
+                {site.doctor.name} leads the therapeutic philosophy of One Wellness Clinic &amp;
+                Research Center, with an emphasis on authentic Ayurvedic healing, individualised
+                dosha assessment, and specialized Agnikarma and Panchakarma therapies.
               </p>
             </Reveal>
             <Reveal delay={0.14} className="mt-10 border-t border-ink/12 pt-6">
-              <p className="max-w-xl text-xs leading-relaxed text-ink/45">
-                Ayurvedic therapy at One Wellness is delivered under the guidance of a qualified
-                Ayurvedic practitioner. Practitioner details are listed separately below and are
-                published once confirmed.
+              <p className="max-w-xl text-xs leading-relaxed text-ink/55">
+                Consultations and therapies at One Wellness are delivered under the direct care of{' '}
+                {site.doctor.name} (Registration No: {site.doctor.registrationNumber}). Practitioner
+                profile and verification are detailed below.
               </p>
             </Reveal>
           </div>
