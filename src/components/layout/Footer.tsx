@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { InstagramIcon, MailIcon, PhoneIcon, MapPinIcon, MessageSquareIcon, GlobeIcon } from 'lucide-react';
+import { InstagramIcon, MailIcon, PhoneIcon, MapPinIcon, MessageSquareIcon } from 'lucide-react';
 import { localNav } from '../../data/navigation';
 import { site, whatsappLink, telLink, bookAppointmentWhatsappLink, DISCLAIMER } from '../../config/site';
 import logoImg from '../../assets/logo.png';
@@ -142,18 +142,6 @@ export function Footer() {
                 <MailIcon className="h-4 w-4 shrink-0 text-[#93A893]" aria-hidden="true" />
                 <a href={`mailto:${site.email}`} className="transition-colors hover:text-[#D3B67C]">
                   {site.email}
-                </a>
-              </p>
-
-              <p className="flex items-center gap-2.5">
-                <GlobeIcon className="h-4 w-4 shrink-0 text-[#93A893]" aria-hidden="true" />
-                <a
-                  href={site.websiteUrl}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="transition-colors hover:text-[#D3B67C]"
-                >
-                  {site.website}
                 </a>
               </p>
             </address>
