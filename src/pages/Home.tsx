@@ -1,5 +1,7 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Hero } from '../components/home/Hero';
+import { DoctorIntro } from '../components/home/DoctorIntro';
 import { IntroEditorial } from '../components/home/IntroEditorial';
 import { ProgramsPreview } from '../components/home/ProgramsPreview';
 import { PhilosophyJourney } from '../components/sections/PhilosophyJourney';
@@ -23,10 +25,13 @@ import { site } from '../config/site';
 import { img } from '../data/images';
 
 export function Home() {
+  const { t } = useTranslation();
+
   useSeo({
-    title: 'Panchakarma & Ayurvedic Wellness Clinic in Nashik | One Wellness',
-    description:
-    'Experience personalised Panchakarma, Ayurvedic therapies, rejuvenation and holistic wellness at One Wellness Clinic & Research Center in Nashik. Book an Ayurvedic consultation today.',
+    title: t('home.hero.tagline1', { defaultValue: 'Panchakarma & Ayurvedic Wellness Clinic in Nashik | One Wellness' }),
+    description: t('home.hero.description', {
+      defaultValue: 'Experience personalised Panchakarma, Ayurvedic therapies, rejuvenation and holistic wellness at One Wellness Clinic & Research Center in Nashik. Book an Ayurvedic consultation today.'
+    }),
     path: '/',
     image: img.hero
   });
@@ -65,8 +70,9 @@ export function Home() {
           ]
         }}
       />
-      
+
       <Hero />
+      <DoctorIntro />
       <IntroEditorial />
       <PhilosophyJourney />
       <TrustStrip />
@@ -84,12 +90,15 @@ export function Home() {
       <ConsultationForm />
       <WhatsAppSection />
       <ImmersiveCta
-        heading={'Begin With a Conversation,\nNot a Package.'}
-        text="Your Ayurvedic consultation is where the journey starts — an unhurried assessment before anything is recommended."
+        heading={t('home.immersiveCta.heading', { defaultValue: 'Begin With a Conversation,\nNot a Package.' })}
+        text={t('home.immersiveCta.text', { defaultValue: 'Your Ayurvedic consultation is where the journey starts — an unhurried assessment before anything is recommended.' })}
         image={img.retreat}
         alt="A contemporary wellness retreat exterior at dusk with a still reflecting pool"
-        secondary={{ label: 'Discover Panchakarma', to: '/panchakarma' }} />
-      
-    </>);
-
+        secondary={{
+          label: t('home.immersiveCta.secondary', { defaultValue: 'Discover Panchakarma' }),
+          to: '/panchakarma'
+        }}
+      />
+    </>
+  );
 }

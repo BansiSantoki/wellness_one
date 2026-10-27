@@ -2,8 +2,10 @@ import { useEffect, useState, type MouseEvent } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { MenuIcon, XIcon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { primaryNav } from '../../data/navigation';
-import { site, whatsappLink } from '../../config/site';
+import { site, whatsappLink, bookAppointmentWhatsappLink } from '../../config/site';
+import { LanguageSwitcher } from './LanguageSwitcher';
 import logoImg from '../../assets/logo.png';
 
 interface NavbarProps {
@@ -11,7 +13,19 @@ interface NavbarProps {
   overDark: boolean;
 }
 
+const navKeyMap: Record<string, string> = {
+  '/about': 'nav.about',
+  '/panchakarma': 'nav.panchakarma',
+  '/therapies': 'nav.therapies',
+  '/programs': 'nav.programs',
+  '/rejuvenation': 'nav.rejuvenation',
+  '/wellness': 'nav.wellness',
+  '/faq': 'nav.faqs',
+  '/contact': 'nav.contact'
+};
+
 export function Navbar({ overDark }: NavbarProps) {
+  const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
@@ -80,7 +94,7 @@ export function Navbar({ overDark }: NavbarProps) {
 
         <nav
           aria-label="Primary"
-          className="mx-auto flex h-full max-w-edge items-center justify-between px-5 sm:px-8 lg:px-12"
+          className="mx-auto flex h-full max-w-edge items-center justify-between px-4 sm:px-8 lg:px-12"
         >
           {/* Logo Aligned Left */}
           <Link
@@ -92,61 +106,68 @@ export function Navbar({ overDark }: NavbarProps) {
             <img
               src={logoImg}
               alt="One Wellness Clinic & Research Center"
-              className="h-[54px] w-[54px] sm:h-[62px] sm:w-[62px] lg:h-[70px] lg:w-[70px] object-contain transition-all duration-300 drop-shadow-xs"
+              className="h-[52px] w-[52px] sm:h-[62px] sm:w-[62px] lg:h-[70px] lg:w-[70px] object-contain transition-all duration-300 drop-shadow-xs"
             />
           </Link>
 
           {/* Centered Desktop Navigation Links */}
-          <ul className="hidden flex-1 items-center justify-center gap-5 lg:flex xl:gap-7">
-            {primaryNav.map((item) => (
-              <li key={item.to}>
-                <NavLink
-                  to={item.to}
-                  className={({ isActive }) =>
-                    `group relative block text-[12.5px] font-sans font-medium tracking-normal transition-colors duration-300 ${
-                      light
-                        ? isActive
-                          ? 'text-[#D3B67C]'
-                          : 'text-white hover:text-[#D3B67C]'
-                        : isActive
-                        ? 'text-[#173D30]'
-                        : 'text-[#173D30]/80 hover:text-[#D3B67C]'
-                    }`
-                  }
-                >
-                  {({ isActive }) => (
-                    <>
-                      <span className="py-1 inline-block">{item.label}</span>
-                      <span
-                        className={`absolute -bottom-1 left-0 h-[2px] w-full origin-left bg-[#D3B67C] transition-transform duration-300 ease-calm ${
-                          isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-                        }`}
-                        aria-hidden="true"
-                      />
-                    </>
-                  )}
-                </NavLink>
-              </li>
-            ))}
+          <ul className="hidden flex-1 items-center justify-center gap-4 lg:flex xl:gap-6">
+            {primaryNav.map((item) => {
+              const label = navKeyMap[item.to] ? t(navKeyMap[item.to], item.label) : item.label;
+              return (
+                <li key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    className={({ isActive }) =>
+                      `group relative block text-[12.5px] font-sans font-medium tracking-normal transition-colors duration-300 ${
+                        light
+                          ? isActive
+                            ? 'text-[#D3B67C]'
+                            : 'text-white hover:text-[#D3B67C]'
+                          : isActive
+                          ? 'text-[#173D30]'
+                          : 'text-[#173D30]/80 hover:text-[#D3B67C]'
+                      }`
+                    }
+                  >
+                    {({ isActive }) => (
+                      <>
+                        <span className="py-1 inline-block whitespace-nowrap">{label}</span>
+                        <span
+                          className={`absolute -bottom-1 left-0 h-[2px] w-full origin-left bg-[#D3B67C] transition-transform duration-300 ease-calm ${
+                            isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                          }`}
+                          aria-hidden="true"
+                        />
+                      </>
+                    )}
+                  </NavLink>
+                </li>
+              );
+            })}
           </ul>
 
-          {/* Book Consultation Button & Mobile Toggle */}
-          <div className="flex shrink-0 items-center gap-4">
-            <Link
-              to="/consultation"
+          {/* Right Action Area: Language Switcher, Book Consultation Button & Mobile Toggle */}
+          <div className="flex shrink-0 items-center gap-2.5 sm:gap-4">
+            <LanguageSwitcher overDark={light} />
+
+            <a
+              href={bookAppointmentWhatsappLink()}
+              target="_blank"
+              rel="noreferrer noopener"
               className={`hidden h-[42px] px-5 sm:px-6 text-[11px] font-sans font-medium uppercase tracking-[0.12em] items-center justify-center transition-all duration-300 ease-calm lg:inline-flex ${
                 light
                   ? 'border border-[#D3B67C] bg-[#173D30]/30 backdrop-blur-xs text-white hover:bg-[#D3B67C] hover:text-[#173D30] hover:border-[#D3B67C]'
                   : 'bg-[#173D30] text-[#FCFAF4] border border-[#173D30] hover:bg-[#0D241C] hover:border-[#0D241C]'
               }`}
             >
-              BOOK CONSULTATION
-            </Link>
+              {t('common.bookAppointment', { defaultValue: 'BOOK APPOINTMENT' })}
+            </a>
 
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
-              aria-label="Open menu"
+              aria-label={t('nav.menu', 'Open menu')}
               aria-expanded={menuOpen}
               className={`flex items-center gap-2 p-2 transition-colors lg:hidden ${textColor}`}
             >
@@ -188,10 +209,10 @@ export function Navbar({ overDark }: NavbarProps) {
               <button
                 type="button"
                 onClick={() => setMenuOpen(false)}
-                aria-label="Close menu"
+                aria-label={t('nav.close', 'Close menu')}
                 className="flex items-center gap-2 p-2 text-[12px] font-sans font-medium uppercase tracking-[0.08em] text-[#173D30] hover:text-[#D3B67C] transition-colors"
               >
-                <span>Close</span>
+                <span>{t('nav.close', 'Close')}</span>
                 <XIcon className="h-6 w-6" aria-hidden="true" />
               </button>
             </div>
@@ -202,59 +223,66 @@ export function Navbar({ overDark }: NavbarProps) {
               className="flex flex-1 flex-col justify-between overflow-y-auto px-6 py-8 sm:px-10"
             >
               <ul className="space-y-4">
-                {primaryNav.map((item, i) => (
-                  <motion.li
-                    key={item.to}
-                    initial={reduce ? { opacity: 0 } : { opacity: 0, x: -12 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      duration: 0.3,
-                      delay: 0.08 + i * 0.04,
-                      ease: [0.23, 1, 0.32, 1],
-                    }}
-                    className="border-b border-[#173D30]/10 pb-3"
-                  >
-                    <NavLink
-                      to={item.to}
-                      className={({ isActive }) =>
-                        `flex items-center justify-between text-[1.2rem] font-sans font-medium transition-colors ${
-                          isActive
-                            ? 'text-[#B08D4F]'
-                            : 'text-[#173D30] hover:text-[#D3B67C]'
-                        }`
-                      }
-                      onClick={() => setMenuOpen(false)}
+                {primaryNav.map((item, i) => {
+                  const label = navKeyMap[item.to] ? t(navKeyMap[item.to], item.label) : item.label;
+                  return (
+                    <motion.li
+                      key={item.to}
+                      initial={reduce ? { opacity: 0 } : { opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{
+                        duration: 0.3,
+                        delay: 0.08 + i * 0.04,
+                        ease: [0.23, 1, 0.32, 1],
+                      }}
+                      className="border-b border-[#173D30]/10 pb-3"
                     >
-                      <span>{item.label}</span>
-                    </NavLink>
-                  </motion.li>
-                ))}
+                      <NavLink
+                        to={item.to}
+                        className={({ isActive }) =>
+                          `flex items-center justify-between text-[1.2rem] font-sans font-medium transition-colors ${
+                            isActive
+                              ? 'text-[#B08D4F]'
+                              : 'text-[#173D30] hover:text-[#D3B67C]'
+                          }`
+                        }
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        <span>{label}</span>
+                      </NavLink>
+                    </motion.li>
+                  );
+                })}
               </ul>
 
-              {/* Action buttons inside drawer */}
+              {/* Language Switcher & Action buttons inside drawer */}
               <motion.div
                 initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: 0.4, ease: [0.23, 1, 0.32, 1] }}
-                className="mt-8 flex flex-col gap-3"
+                transition={{ duration: 0.35, delay: 0.35, ease: [0.23, 1, 0.32, 1] }}
+                className="mt-8 flex flex-col gap-4"
               >
-                <Link
-                  to="/consultation"
+                <LanguageSwitcher variant="drawer" />
+
+                <a
+                  href={bookAppointmentWhatsappLink()}
+                  target="_blank"
+                  rel="noreferrer noopener"
                   onClick={() => setMenuOpen(false)}
                   className="flex h-[44px] w-full items-center justify-center bg-[#173D30] text-[#FCFAF4] text-[11px] font-sans font-medium uppercase tracking-[0.12em] transition-colors hover:bg-[#0D241C]"
                 >
-                  BOOK CONSULTATION
-                </Link>
+                  {t('common.bookAppointment', { defaultValue: 'BOOK APPOINTMENT' })}
+                </a>
                 <a
                   href={whatsappLink()}
                   target="_blank"
                   rel="noreferrer noopener"
                   className="flex h-[44px] w-full items-center justify-center border border-[#173D30]/30 text-[#173D30] text-[11px] font-sans font-medium uppercase tracking-[0.12em] transition-colors hover:bg-[#173D30]/5"
                 >
-                  Chat on WhatsApp
+                  {t('nav.chatWhatsapp', 'Chat on WhatsApp')}
                 </a>
-                <p className="mt-4 text-center text-[11px] leading-relaxed text-[#173D30]/60">
-                  {site.division} • {site.city}, Maharashtra
+                <p className="mt-2 text-center text-[11px] leading-relaxed text-[#173D30]/60">
+                  {t('site.division', site.division)} • {t('site.city', site.city)}, Maharashtra
                 </p>
               </motion.div>
             </nav>

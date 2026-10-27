@@ -25,9 +25,9 @@ export default {
         stone: '#8A8578',
       },
       fontFamily: {
-        display: ['"Cormorant Garamond"', '"Lora"', 'Georgia', 'serif'],
-        serif: ['"Cormorant Garamond"', '"Lora"', 'Georgia', 'serif'],
-        sans: ['"Inter"', '"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['"Cormorant Garamond"', '"Noto Serif Devanagari"', '"Lora"', 'Georgia', 'serif'],
+        serif: ['"Cormorant Garamond"', '"Noto Serif Devanagari"', '"Lora"', 'Georgia', 'serif'],
+        sans: ['"Inter"', '"Plus Jakarta Sans"', '"Noto Sans Devanagari"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
         label: '0.08em',

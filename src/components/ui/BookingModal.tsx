@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { XIcon, CalendarIcon, ClockIcon, CheckCircle2Icon, PhoneIcon, MessageSquareIcon } from 'lucide-react';
+import { XIcon, CalendarIcon, CheckCircle2Icon, PhoneIcon, MessageSquareIcon } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { therapies, Therapy } from '../../data/therapies';
 import { site, whatsappLink, telLink } from '../../config/site';
 
@@ -23,6 +24,8 @@ interface BookingModalProps {
 }
 
 export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalProps) {
+  const { t, i18n } = useTranslation();
+
   // Form states
   const [currentTherapy, setCurrentTherapy] = useState<Therapy>(
     selectedTherapy || therapies[0]
@@ -63,10 +66,11 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
   if (!isOpen) return null;
 
   const formatDateLabel = (rawDate: string) => {
-    if (!rawDate) return 'Select Date';
+    if (!rawDate) return t('common.selectDate', { defaultValue: 'Select Date' });
     try {
       const d = new Date(rawDate);
-      return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      const locale = i18n.language === 'hi' ? 'hi-IN' : i18n.language === 'mr' ? 'mr-IN' : 'en-GB';
+      return d.toLocaleDateString(locale, { day: 'numeric', month: 'long', year: 'numeric' });
     } catch {
       return rawDate;
     }
@@ -76,6 +80,19 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
     e.preventDefault();
     setIsSubmitted(true);
   };
+
+  const getTherapyName = (th: Therapy) => {
+    const tr = t(`therapiesData.${th.slug}`, { returnObjects: true }) as { name?: string; priceFrom?: string } | undefined;
+    return tr?.name || th.name;
+  };
+
+  const getTherapyPrice = (th: Therapy) => {
+    const tr = t(`therapiesData.${th.slug}`, { returnObjects: true }) as { priceFrom?: string } | undefined;
+    return tr?.priceFrom || th.priceFrom;
+  };
+
+  const currentTherapyName = getTherapyName(currentTherapy);
+  const currentTherapyPrice = getTherapyPrice(currentTherapy);
 
   return (
     <AnimatePresence>
@@ -101,17 +118,17 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
           <div className="flex items-center justify-between bg-[#102A20] px-6 py-5 text-[#FCFAF4]">
             <div>
               <span className="text-[10px] font-sans uppercase tracking-[0.12em] text-[#D3B67C]">
-                One Wellness Clinic &amp; Research Center
+                {t('bookingModal.headerSubtitle', { defaultValue: 'One Wellness Clinic & Research Center' })}
               </span>
               <h2 className="font-serif text-xl sm:text-2xl font-light text-white">
-                Book Ayurvedic Consultation / Therapy
+                {t('bookingModal.headerTitle', { defaultValue: 'Book Ayurvedic Consultation / Therapy' })}
               </h2>
             </div>
             <button
               onClick={onClose}
               type="button"
               className="rounded-full p-2 text-white/80 hover:bg-white/10 hover:text-white transition-colors"
-              aria-label="Close booking modal"
+              aria-label={t('bookingModal.closeModal', { defaultValue: 'Close booking modal' })}
             >
               <XIcon className="h-5 w-5" />
             </button>
@@ -124,33 +141,41 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                 <CheckCircle2Icon className="h-10 w-10 text-[#B08D4F]" />
               </div>
               <h3 className="mt-4 font-serif text-2xl font-normal text-[#102A20]">
-                Appointment Request Received
+                {t('bookingModal.requestReceived', { defaultValue: 'Appointment Request Received' })}
               </h3>
               <p className="mt-2 text-sm text-[#25231F]/70 max-w-md mx-auto">
-                Thank you, <strong className="text-[#102A20]">{name || 'valued guest'}</strong>. Our clinical coordinator will contact you to confirm your appointment.
+                {t('bookingModal.thankYouMessage', { name: name || 'valued guest', defaultValue: `Thank you, ${name || 'valued guest'}. Our clinical coordinator will contact you to confirm your appointment.` })}
               </p>
 
               {/* Summary Card */}
               <div className="mt-6 mx-auto max-w-md rounded-none bg-[#F6F1E6] p-6 text-left border border-[#E8DFCC]">
                 <h4 className="text-[11px] font-sans font-medium uppercase tracking-wider text-[#B08D4F] border-b border-[#E8DFCC] pb-2">
-                  Booking Summary
+                  {t('bookingModal.summaryHeading', { defaultValue: 'Booking Summary' })}
                 </h4>
                 <div className="mt-4 space-y-2 text-sm text-[#25231F]">
                   <div className="flex justify-between">
-                    <span className="text-[#25231F]/60">Selected Therapy:</span>
-                    <span className="font-medium text-[#102A20]">{currentTherapy.name}</span>
+                    <span className="text-[#25231F]/60">
+                      {t('bookingModal.selectedTherapyLabel', { defaultValue: 'Selected Therapy:' })}
+                    </span>
+                    <span className="font-medium text-[#102A20]">{currentTherapyName}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#25231F]/60">Preferred Date:</span>
+                    <span className="text-[#25231F]/60">
+                      {t('bookingModal.preferredDateLabel', { defaultValue: 'Preferred Date:' })}
+                    </span>
                     <span className="font-medium text-[#102A20]">{formatDateLabel(date)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#25231F]/60">Preferred Time:</span>
+                    <span className="text-[#25231F]/60">
+                      {t('bookingModal.preferredTimeLabel', { defaultValue: 'Preferred Time:' })}
+                    </span>
                     <span className="font-medium text-[#102A20]">{time}</span>
                   </div>
                   <div className="flex justify-between border-t border-[#E8DFCC] pt-2">
-                    <span className="text-[#25231F]/60">Starting Price:</span>
-                    <span className="font-bold text-lg text-[#102A20]">{currentTherapy.priceFrom}</span>
+                    <span className="text-[#25231F]/60">
+                      {t('bookingModal.startingPriceLabel', { defaultValue: 'Starting Price:' })}
+                    </span>
+                    <span className="font-bold text-lg text-[#102A20]">{currentTherapyPrice}</span>
                   </div>
                 </div>
               </div>
@@ -162,17 +187,17 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                   className="h-11 px-6 bg-[#102A20] text-white text-[11px] font-sans font-medium uppercase tracking-[0.12em] flex items-center justify-center gap-2 hover:bg-[#1B4132] transition-colors"
                 >
                   <PhoneIcon className="h-4 w-4 text-[#D3B67C]" />
-                  <span>CALL CLINIC ({site.phone})</span>
+                  <span>{t('bookingModal.callClinicBtn', { phone: site.phone, defaultValue: `CALL CLINIC (${site.phone})` })}</span>
                 </a>
 
                 <a
-                  href={whatsappLink(`Hello, I submitted an appointment request for ${currentTherapy.name} on ${formatDateLabel(date)} at ${time}. My name is ${name}.`)}
+                  href={whatsappLink(`Hello, I submitted an appointment request for ${currentTherapyName} on ${formatDateLabel(date)} at ${time}. My name is ${name}.`)}
                   target="_blank"
                   rel="noreferrer noopener"
                   className="h-11 px-6 border border-[#102A20] text-[#102A20] text-[11px] font-sans font-medium uppercase tracking-[0.12em] flex items-center justify-center gap-2 hover:bg-[#102A20]/5 transition-colors"
                 >
                   <MessageSquareIcon className="h-4 w-4 text-[#B08D4F]" />
-                  <span>WHATSAPP CLINIC</span>
+                  <span>{t('bookingModal.whatsappClinicBtn', { defaultValue: 'WHATSAPP CLINIC' })}</span>
                 </a>
               </div>
 
@@ -182,7 +207,7 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                   onClick={onClose}
                   className="text-xs text-[#25231F]/60 underline hover:text-[#102A20]"
                 >
-                  Close Window
+                  {t('bookingModal.closeWindowBtn', { defaultValue: 'Close Window' })}
                 </button>
               </div>
             </div>
@@ -190,25 +215,24 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
             /* Booking Form */
             <form onSubmit={handleSubmit} className="p-6 sm:p-8 max-h-[80vh] overflow-y-auto">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-                
                 {/* Left Column: Selection */}
                 <div className="md:col-span-6 space-y-5">
                   {/* Therapy Selection */}
                   <div>
                     <label className="block text-[11px] font-sans font-medium uppercase tracking-wider text-[#102A20] mb-2">
-                      Selected Therapy *
+                      {t('bookingModal.chooseTherapyLabel', { defaultValue: 'Selected Therapy *' })}
                     </label>
                     <select
                       value={currentTherapy.slug}
                       onChange={(e) => {
-                        const found = therapies.find(t => t.slug === e.target.value);
+                        const found = therapies.find((th) => th.slug === e.target.value);
                         if (found) setCurrentTherapy(found);
                       }}
                       className="w-full h-11 px-3 bg-white border border-[#E8DFCC] text-[#25231F] text-sm focus:border-[#B08D4F] focus:outline-none"
                     >
-                      {therapies.map(t => (
-                        <option key={t.slug} value={t.slug}>
-                          {t.name} ({t.priceFrom})
+                      {therapies.map((th) => (
+                        <option key={th.slug} value={th.slug}>
+                          {getTherapyName(th)} ({getTherapyPrice(th)})
                         </option>
                       ))}
                     </select>
@@ -217,7 +241,7 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                   {/* Date Selector */}
                   <div>
                     <label className="block text-[11px] font-sans font-medium uppercase tracking-wider text-[#102A20] mb-2">
-                      Preferred Date *
+                      {t('bookingModal.chooseDateLabel', { defaultValue: 'Preferred Date *' })}
                     </label>
                     <div className="relative">
                       <input
@@ -235,10 +259,10 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                   {/* Time Slots */}
                   <div>
                     <label className="block text-[11px] font-sans font-medium uppercase tracking-wider text-[#102A20] mb-2">
-                      Preferred Time Slot *
+                      {t('bookingModal.preferredTimeSlotLabel', { defaultValue: 'Preferred Time Slot *' })}
                     </label>
                     <div className="grid grid-cols-3 gap-2">
-                      {TIME_SLOTS.map(slot => {
+                      {TIME_SLOTS.map((slot) => {
                         const isSelected = time === slot;
                         return (
                           <button
@@ -261,15 +285,32 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                   {/* Live Booking Summary Box */}
                   <div className="bg-[#F6F1E6] p-4 border border-[#E8DFCC]">
                     <div className="text-[10px] font-sans font-medium uppercase tracking-wider text-[#B08D4F]">
-                      Booking Summary
+                      {t('bookingModal.summaryHeading', { defaultValue: 'Booking Summary' })}
                     </div>
                     <div className="mt-2 text-xs space-y-1">
-                      <p><span className="text-[#25231F]/60">Therapy:</span> <strong className="text-[#102A20]">{currentTherapy.name}</strong></p>
-                      <p><span className="text-[#25231F]/60">Preferred Date:</span> <strong className="text-[#102A20]">{formatDateLabel(date)}</strong></p>
-                      <p><span className="text-[#25231F]/60">Preferred Time:</span> <strong className="text-[#102A20]">{time}</strong></p>
+                      <p>
+                        <span className="text-[#25231F]/60">
+                          {t('bookingModal.selectedTherapyLabel', { defaultValue: 'Therapy:' })}{' '}
+                        </span>
+                        <strong className="text-[#102A20]">{currentTherapyName}</strong>
+                      </p>
+                      <p>
+                        <span className="text-[#25231F]/60">
+                          {t('bookingModal.preferredDateLabel', { defaultValue: 'Preferred Date:' })}{' '}
+                        </span>
+                        <strong className="text-[#102A20]">{formatDateLabel(date)}</strong>
+                      </p>
+                      <p>
+                        <span className="text-[#25231F]/60">
+                          {t('bookingModal.preferredTimeLabel', { defaultValue: 'Preferred Time:' })}{' '}
+                        </span>
+                        <strong className="text-[#102A20]">{time}</strong>
+                      </p>
                       <p className="pt-2 border-t border-[#E8DFCC] flex justify-between items-center">
-                        <span className="text-[#25231F]/70">Indicative Price:</span>
-                        <span className="text-base font-bold text-[#102A20]">{currentTherapy.priceFrom}</span>
+                        <span className="text-[#25231F]/70">
+                          {t('bookingModal.indicativePriceLabel', { defaultValue: 'Indicative Price:' })}
+                        </span>
+                        <span className="text-base font-bold text-[#102A20]">{currentTherapyPrice}</span>
                       </p>
                     </div>
                   </div>
@@ -278,15 +319,17 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                 {/* Right Column: Personal Info */}
                 <div className="md:col-span-6 space-y-3.5">
                   <span className="block text-[11px] font-sans font-medium uppercase tracking-wider text-[#102A20] mb-1">
-                    Contact Details
+                    {t('bookingModal.contactDetailsHeading', { defaultValue: 'Contact Details' })}
                   </span>
 
                   <div>
-                    <label className="block text-xs text-[#25231F]/70 mb-1">Name *</label>
+                    <label className="block text-xs text-[#25231F]/70 mb-1">
+                      {t('bookingModal.fullNameLabel', { defaultValue: 'Name *' })}
+                    </label>
                     <input
                       type="text"
                       required
-                      placeholder="Your full name"
+                      placeholder={t('bookingModal.fullNamePlaceholder', { defaultValue: 'Your full name' })}
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       className="w-full h-10 px-3 bg-white border border-[#E8DFCC] text-[#25231F] text-sm focus:border-[#B08D4F] focus:outline-none"
@@ -294,7 +337,9 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                   </div>
 
                   <div>
-                    <label className="block text-xs text-[#25231F]/70 mb-1">Mobile Number *</label>
+                    <label className="block text-xs text-[#25231F]/70 mb-1">
+                      {t('bookingModal.mobileNumberLabel', { defaultValue: 'Mobile Number *' })}
+                    </label>
                     <input
                       type="tel"
                       required
@@ -306,10 +351,12 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                   </div>
 
                   <div>
-                    <label className="block text-xs text-[#25231F]/70 mb-1">WhatsApp Number</label>
+                    <label className="block text-xs text-[#25231F]/70 mb-1">
+                      {t('bookingModal.whatsappNumberLabel', { defaultValue: 'WhatsApp Number' })}
+                    </label>
                     <input
                       type="tel"
-                      placeholder="WhatsApp contact number"
+                      placeholder={t('bookingModal.whatsappNumberPlaceholder', { defaultValue: 'WhatsApp contact number' })}
                       value={whatsapp}
                       onChange={(e) => setWhatsapp(e.target.value)}
                       className="w-full h-10 px-3 bg-white border border-[#E8DFCC] text-[#25231F] text-sm focus:border-[#B08D4F] focus:outline-none"
@@ -317,26 +364,30 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                   </div>
 
                   <div>
-                    <label className="block text-xs text-[#25231F]/70 mb-1">Your Wellness Goal *</label>
+                    <label className="block text-xs text-[#25231F]/70 mb-1">
+                      {t('bookingModal.goalLabel', { defaultValue: 'Your Wellness Goal *' })}
+                    </label>
                     <select
                       value={goal}
                       onChange={(e) => setGoal(e.target.value)}
                       className="w-full h-10 px-3 bg-white border border-[#E8DFCC] text-[#25231F] text-sm focus:border-[#B08D4F] focus:outline-none"
                     >
-                      <option value="Panchakarma">Panchakarma</option>
-                      <option value="Rejuvenation">Rejuvenation</option>
-                      <option value="Ayurvedic Massage">Ayurvedic Massage</option>
-                      <option value="Stress & Relaxation">Stress &amp; Relaxation</option>
-                      <option value="General Wellness">General Wellness</option>
-                      <option value="Other">Other</option>
+                      <option value="Panchakarma">{t('form.goals.panchakarma', { defaultValue: 'Panchakarma' })}</option>
+                      <option value="Rejuvenation">{t('form.goals.rejuvenation', { defaultValue: 'Rejuvenation' })}</option>
+                      <option value="Ayurvedic Massage">{t('form.goals.ayurvedicMassage', { defaultValue: 'Ayurvedic Massage' })}</option>
+                      <option value="Stress & Relaxation">{t('form.goals.stressRelaxation', { defaultValue: 'Stress & Relaxation' })}</option>
+                      <option value="General Wellness">{t('form.goals.generalWellness', { defaultValue: 'General Wellness' })}</option>
+                      <option value="Other">{t('form.goals.other', { defaultValue: 'Other' })}</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs text-[#25231F]/70 mb-1">Message / Notes</label>
+                    <label className="block text-xs text-[#25231F]/70 mb-1">
+                      {t('bookingModal.messageLabel', { defaultValue: 'Message / Notes' })}
+                    </label>
                     <textarea
                       rows={2}
-                      placeholder="Specific requirements or questions..."
+                      placeholder={t('bookingModal.messagePlaceholder', { defaultValue: 'Specific requirements or questions...' })}
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       className="w-full p-2.5 bg-white border border-[#E8DFCC] text-[#25231F] text-sm focus:border-[#B08D4F] focus:outline-none resize-none"
@@ -358,13 +409,13 @@ export function BookingModal({ isOpen, onClose, selectedTherapy }: BookingModalP
                     onClick={onClose}
                     className="px-4 py-2 text-xs font-sans uppercase tracking-wider text-[#25231F]/70 hover:text-[#25231F]"
                   >
-                    Cancel
+                    {t('bookingModal.cancelBtn', { defaultValue: 'Cancel' })}
                   </button>
                   <button
                     type="submit"
                     className="h-11 px-7 bg-[#B08D4F] text-[#102A20] text-[11px] font-sans font-bold uppercase tracking-[0.14em] hover:bg-[#D3B67C] transition-all shadow-md"
                   >
-                    SUBMIT ENQUIRY
+                    {t('bookingModal.submitEnquiryBtn', { defaultValue: 'SUBMIT ENQUIRY' })}
                   </button>
                 </div>
               </div>

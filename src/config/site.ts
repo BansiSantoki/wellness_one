@@ -97,6 +97,13 @@ export const site: SiteConfig = {
   heroVideoUrl: ''
 };
 
+export const OFFICIAL_APPOINTMENT_MESSAGE =
+  'Hello, I would like to book an appointment with Dr. Shubham Mahajan at One Wellness Clinic.';
+
+export const bookAppointmentWhatsappLink = (
+  message: string = OFFICIAL_APPOINTMENT_MESSAGE
+): string => `https://wa.me/919175893553?text=${encodeURIComponent(message)}`;
+
 export const whatsappLink = (message: string = site.whatsappMessage): string =>
   `https://wa.me/${site.whatsapp}?text=${encodeURIComponent(message)}`;
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { SectionLabel } from '../ui/SectionLabel';
 import { Reveal } from '../ui/Reveal';
 import { CarouselDots } from '../ui/CarouselDots';
@@ -33,57 +34,63 @@ interface TestimonialsProps {
   heading?: string;
 }
 
-export function Testimonials({ items = sampleTestimonials, heading = 'In Their Own Words' }: TestimonialsProps) {
+export function Testimonials({ items, heading }: TestimonialsProps) {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
 
-  if (items.length === 0) return null;
+  const rawItems = t('home.testimonials.items', { returnObjects: true });
+  const displayItems: Testimonial[] = items || (Array.isArray(rawItems) && rawItems.length > 0 ? (rawItems as Testimonial[]) : sampleTestimonials);
+  const displayHeading = heading || t('home.testimonials.heading', { defaultValue: 'In Their Own Words' });
+
+  if (displayItems.length === 0) return null;
+
+  const current = displayItems[activeIndex] || displayItems[0];
 
   const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? items.length - 1 : prev - 1));
+    setActiveIndex((prev) => (prev === 0 ? displayItems.length - 1 : prev - 1));
   };
 
   const handleNext = () => {
-    setActiveIndex((prev) => (prev === items.length - 1 ? 0 : prev + 1));
+    setActiveIndex((prev) => (prev === displayItems.length - 1 ? 0 : prev + 1));
   };
 
   return (
     <section aria-labelledby="testimonials-heading" className="bg-[#FCFAF4] border-t border-[#E8DFCC]">
-      <div className="mx-auto max-w-edge px-5 py-20 sm:px-8 sm:py-24 lg:px-14">
-        <SectionLabel>Experiences</SectionLabel>
+      <div className="mx-auto max-w-edge px-5 py-8 sm:px-8 sm:py-10 lg:px-14 lg:py-12">
+        <SectionLabel>{t('home.testimonials.eyebrow', { defaultValue: 'Experiences' })}</SectionLabel>
         <h2
           id="testimonials-heading"
-          className="mt-6 max-w-2xl font-serif text-[2.2rem] font-light leading-[1.1] text-[#102A20] sm:text-[2.8rem]"
+          className="mt-3 max-w-2xl font-serif text-[1.8rem] font-light leading-[1.1] text-[#102A20] sm:text-[2.2rem]"
         >
-          {heading}
+          {displayHeading}
         </h2>
 
         {/* Carousel Slider Display */}
-        <div className="mt-12 relative max-w-4xl mx-auto bg-[#F6F1E6] p-8 sm:p-12 border border-[#E8DFCC]">
+        <div className="mt-6 sm:mt-8 relative max-w-3xl mx-auto bg-[#F6F1E6] p-6 sm:p-8 border border-[#E8DFCC] shadow-xs">
           <Reveal key={activeIndex}>
             <blockquote className="flex flex-col items-center text-center">
-              <p className="font-serif text-[1.45rem] sm:text-[1.8rem] font-light italic leading-relaxed text-[#102A20]">
-                “{items[activeIndex].quote}”
+              <p className="font-serif text-[1.25rem] sm:text-[1.5rem] font-light italic leading-relaxed text-[#102A20]">
+                “{current.quote}”
               </p>
-              <footer className="mt-6 text-[11px] font-sans font-medium uppercase tracking-[0.12em] text-[#B08D4F]">
-                {items[activeIndex].name}
-                {items[activeIndex].context ? ` — ${items[activeIndex].context}` : ''}
+              <footer className="mt-4 text-[11px] font-sans font-medium uppercase tracking-[0.12em] text-[#B08D4F]">
+                {current.name}
+                {current.context ? ` — ${current.context}` : ''}
               </footer>
             </blockquote>
           </Reveal>
 
           {/* Slider Navigation Arrows */}
-          <div className="flex items-center justify-between mt-8">
+          <div className="flex items-center justify-between mt-6">
             <button
               onClick={handlePrev}
               aria-label="Previous testimonial"
-              className="p-2 border border-[#E8DFCC] text-[#102A20] hover:bg-[#102A20] hover:text-white transition-colors"
+              className="p-1.5 border border-[#E8DFCC] text-[#102A20] hover:bg-[#102A20] hover:text-white transition-colors"
             >
-              <ChevronLeftIcon className="h-5 w-5" />
+              <ChevronLeftIcon className="h-4 w-4" />
             </button>
 
-            {/* Gray Slider Indicators */}
             <CarouselDots
-              total={items.length}
+              total={displayItems.length}
               current={activeIndex}
               onChange={setActiveIndex}
             />
@@ -91,9 +98,9 @@ export function Testimonials({ items = sampleTestimonials, heading = 'In Their O
             <button
               onClick={handleNext}
               aria-label="Next testimonial"
-              className="p-2 border border-[#E8DFCC] text-[#102A20] hover:bg-[#102A20] hover:text-white transition-colors"
+              className="p-1.5 border border-[#E8DFCC] text-[#102A20] hover:bg-[#102A20] hover:text-white transition-colors"
             >
-              <ChevronRightIcon className="h-5 w-5" />
+              <ChevronRightIcon className="h-4 w-4" />
             </button>
           </div>
         </div>

@@ -50,16 +50,15 @@ export function RevealText({
         className={byLine ? 'block overflow-hidden' : 'inline-block overflow-hidden align-bottom'}>
         
           <motion.span
-          className="inline-block"
-          initial={{ y: '110%' }}
-          whileInView={{ y: '0%' }}
-          viewport={{ once: true, margin: '-10% 0px -5% 0px' }}
-          transition={{
-            duration: 0.9,
-            delay: delay + i * (byLine ? 0.09 : 0.035),
-            ease: [0.23, 1, 0.32, 1]
-          }}>
-          
+            className="inline-block"
+            initial={{ y: '110%' }}
+            whileInView={{ y: '0%' }}
+            viewport={{ once: true, margin: '0px 0px -10px 0px' }}
+            transition={{
+              duration: 0.55,
+              delay: delay + i * (byLine ? 0.05 : 0.02),
+              ease: [0.23, 1, 0.32, 1]
+            }}>
             {unit}
             {!byLine && i < units.length - 1 ? '\u00A0' : ''}
           </motion.span>
